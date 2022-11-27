@@ -10,12 +10,22 @@
     <script type="text/javascript"
       src="scripts/block_handler.js"></script>
   </head>
+  
+  <body onload="load()">
+    <ul id="navbar">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#news">News</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    
+    <div id="builder">
+      <!-- These should be side-by-side from eachother -->
+      <div id="brickpicker">
+        <!-- The brick picker, for selecting the bricks you want to use -->
+      </div>
 
-  <body>
-    <div id="bricklayer">
-      <div draggable="true" class="brickbase">A</div>
-      <div draggable="true" class="brickbase">B</div>
-      <div draggable="true" class="brickbase">C</div>
+      <div id="bricklayer"><!-- The brick layer for building code --></div>
     </div>
   </body>
 </html>

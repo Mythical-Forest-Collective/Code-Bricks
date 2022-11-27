@@ -1,18 +1,56 @@
+@import url("https://fonts.googleapis.com/css?family=Libre%20Franklin");
+
 #bricklayer {
 /* TODO: Make a border around all elements, should also grow as elements push the walls, ceiling and floor */
   position: absolute;
-  margin: 5px;
-  height: 100%;
-  overflow: auto;
+  height: auto;
+  width: auto;
+  overflow: visible;
 
 }
 
-.brickbase {
-  z-index: 0;
+:root {
+  font-family: 'Libre Franklin', sans-serif;
+} 
+
+#topnav {
   position: fixed;
+  background-color: #818181;
+  overflow: hidden;
+}
+
+.wall {
+  position: absolute;
+}
+
+.brick {
+  position: absolute;
   border: 3px solid #666;
   background-color: #ddd;
   border-radius: .5em;
   padding: 10px;
   cursor: move;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.laidbrick {
+  
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  padding: 8px;
+  background-color: #dddddd;
 }

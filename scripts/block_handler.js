@@ -5,30 +5,48 @@ if (jQuery.browser.mobile) {
   $('head').append('<script src="scripts/dragndroppolyfill.js"></script>');
 }
 
-function getOffset(el) {
-  const rect = el.getBoundingClientRect();
-  return {
-    x: rect.left + window.scrollX,
-    y: rect.top + window.scrollY
-  };
+var bricks = [];
+
+// It creates a wall of bricks, that allow for easy separation and joining of bricks into one group
+function createBrick(data = {"name": "example_name"}) {
+  var brick = document.createElement('div');
+  brick.draggable = true;
+  brick.innerText = data.name;
+  brick.classList.add("brick");
+  brick.classList.add("laidbrick");
+
+  bricks.push(brick);
+
+  $('#bricklayer').append(brick);
 }
 
+//#region Event Handling
 addEventListener('dragstart', (event) => {
+  if (!event.target.classList.contains("brick")) {
+    return;
+  }
+
   event.target.style.opacity = 0.4;
 });
 
 addEventListener('dragend', (event) => {
-  const offset = getOffset(event.target);
-  event.target.style["transform"] = `translate(${offset.x+event.offsetX}px, ${offset.y+event.offsetY}px)`;
+  // Fixes the bug where elements that aren't draggable, can be dragged and then disappear
+  if (!event.target.classList.contains("brick")) {
+    return;
+  }
+
+  event.target.style.transform = `translate(${event.pageX}px, ${event.pageY-$('#navbar').height()}px)`;
   event.target.style.opacity = 1;
 });
-
-function createBlock() {
-
-}
 
 addEventListener('keydown', (event) => {
   if (event.key == "q" && !event.repeat) {
     console.log("Make a new block");
+    createBrick({"name": "readable text"})
   }
 });
+//#endregion
+
+function load() {
+  createBrick()
+}
