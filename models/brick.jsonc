@@ -2,10 +2,10 @@
     "version": 1, // ~ The version of the brick format, added here to ensure we don't break older revisions
     "name": "python::builtin::print", // ~ The internal name of the brick `lang::pkg::name`
     "arguments": {"text": "string"}, // ~ The arguments that the block accepts
-    "generated_output": "print(<text>)", // ~ The code to be generated
-    "displayed": "print <text>", // ~ The way the block is displayed
+    "generated_output": "print([text])", // ~ The code to be generated
+    "displayed": ["print", "[text]"], // ~ The way the block is displayed
     "head": -1, // ~ The index of the brick above, `-1` if not connected to anything
     "foot": -1, // ~ The index of the brick below
     "innerbrickcount": 0, // ~ Used for things like loops, if statements, etc
     "innerbricks": [] // ~ Should have a nested list for each innerbrick allowed
-} // 
+}

@@ -34,8 +34,19 @@
   white-space: nowrap;
 }
 
+/*
 .laidbrick {
   
+}
+*/
+
+.variable {
+  height: 20px;
+  width: 40px;
+  background-color: #555;
+  border-radius: 50%;
+  display: inline-block;
+  transform: translateY(20%);
 }
 
 ul {

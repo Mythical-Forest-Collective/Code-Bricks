@@ -1,0 +1,5 @@
+{
+    "version": 1, // ~ The version of the model
+    "id": "aaaaa",
+    "bricks": ["bbbbb", "ccccc"] // ~ The list of brick IDs
+}
