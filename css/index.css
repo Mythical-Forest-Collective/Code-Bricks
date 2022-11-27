@@ -1,9 +1,14 @@
 #bricklayer {
 /* TODO: Make a border around all elements, should also grow as elements push the walls, ceiling and floor */
+  position: absolute;
+  margin: 5px;
+  height: 100%;
+  overflow: auto;
 
 }
 
 .brickbase {
+  z-index: 0;
   position: fixed;
   border: 3px solid #666;
   background-color: #ddd;

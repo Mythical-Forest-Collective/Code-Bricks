@@ -5,6 +5,24 @@ if (jQuery.browser.mobile) {
   $('head').append('<script src="scripts/dragndroppolyfill.js"></script>');
 }
 
+function getOffset(el) {
+  const rect = el.getBoundingClientRect();
+  return {
+    x: rect.left + window.scrollX,
+    y: rect.top + window.scrollY
+  };
+}
+
+addEventListener('dragstart', (event) => {
+  event.target.style.opacity = 0.4;
+});
+
+addEventListener('dragend', (event) => {
+  const offset = getOffset(event.target);
+  event.target.style["transform"] = `translate(${offset.x+event.offsetX}px, ${offset.y+event.offsetY}px)`;
+  event.target.style.opacity = 1;
+});
+
 function createBlock() {
 
 }
@@ -13,13 +31,4 @@ addEventListener('keydown', (event) => {
   if (event.key == "q" && !event.repeat) {
     console.log("Make a new block");
   }
-});
-
-addEventListener('dragstart', (event) => {
-  event.target.style.opacity = 0.4;
-});
-
-addEventListener('dragend', (event) => {
-  event.target.style["transform"] = `translate(${event.clientX}px, ${event.clientY}px)`;
-  event.target.style.opacity = 1;
 });
