@@ -38,8 +38,8 @@ function uniqueIdGen() {
 function createBrick(data = {version:1,name:"python::builtin::print",arguments:{text:"string"},generated_output:"print(<text>)",displayed:["print", "[text]"],head:-1,foot:-1,innerbrickcount:0,innerbricks:[]}) {
   const wallId = uniqueIdGen();
 
-  var brick = document.createElement('div');
-  var wall = {version: 1, id: wallId, bricks: []};
+  const brick = document.createElement('div');
+  const wall = {version: 1, id: wallId, bricks: []};
 
   const brickId = uniqueIdGen();
 
@@ -58,11 +58,12 @@ function createBrick(data = {version:1,name:"python::builtin::print",arguments:{
 
   $('#bricklayer').append(brick);
 
-  var toDisplay = "";
-  for (var tx in data.displayed) {
+  let toDisplay = "";
+  for (const tx of data.displayed) {
     if (tx.startsWith('[') && tx.endsWith(']')) {
-      if (data.arguments.contains(tx.substr(1, str.length-1))) {
-        toDisplay += "<div class=\"variable\"></div>";
+      const key = tx.slice(1, -1)
+      if (key in data.arguments) {
+        toDisplay += `<div class="variable">${data.arguments[key]}</div>`;
       } else {
         toDisplay += tx;
       }
