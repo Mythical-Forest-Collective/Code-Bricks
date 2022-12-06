@@ -1,4 +1,5 @@
 import std/[
+  sequtils,
   random,
   dom
 ]
@@ -6,13 +7,6 @@ import std/[
 import "."/[
   typedefs
 ]
-
-proc elem(brick: Brick): Element =
-  result = document.getElementById(brick.trackingId.cstring)
-
-  if result == nil:
-    result = document.createElement("div")
-    result.id = brick.trackingId.cstring
 
 const LowercaseLetters = "abcdefghijklmnopqrstuvwxyz"
 
@@ -61,12 +55,36 @@ proc getWallFromId*(id: TrackingId): Wall =
   raise newException(IndexDefect, "The brick you're trying to access does not exist!")
 
 proc create*(_: typedesc[Brick], tag: Tag, arguments: openArray[Argument],
-  genTmpl: string, displayAs: string, head, foot, maxNestedWallCount: int) =
+  genTmpl: string, displayAs: string, head, foot, maxNestedWallCount: int=0) =
 
-  let wallId = TrackingId.new()
-  let brick = Brick(version: 1, trackingId: wallId)
+  var wall = Wall(version: 1, trackingId: TrackingId.new())
+  var brick = Brick(version: 1, trackingId: TrackingId.new(), arguments: arguments.toSeq(),
+  genTmpl: genTmpl, displayed: displayAs)
 
-  var wallElem = document.createElement("div")
-  var brickElem = document.createElement("div")
+  wall.children.add(brick.trackingId)
+  brick.parent = wall.trackingId
 
-  wallElem.id = $wallId
+  walls.add(wall)
+  bricks.add(brick)
+
+  document.getElementById("bricklayer").appendChild(wall.elem)
+
+  wall.elem.appendChild(brick.elem)
+
+
+proc load*() {.cdecl, exportc.} =
+  document.body.addEventListener($DragStart, proc(e: Event) =
+    echo "Drag Start!"
+  )
+
+  document.body.addEventListener($DragEnd, proc(e: Event) =
+    echo "Drag End!"
+  )
+
+  document.body.addEventListener($KeyDown, proc(e: Event) =
+    let event = e.KeyboardEvent
+    if event.key == "q":
+      echo "Created block!"
+      Brick.create("python::builtins::print".t, @[Argument(name: "message", typ: "string")],
+      "print(<message>)", "print <message>")
+  )
