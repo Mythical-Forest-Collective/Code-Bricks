@@ -30,6 +30,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Setup Nim Environment
+        uses: jiro4989/setup-nim-action@v1
+        with:
+          nim-version: '1.6.8'
+      - name: Compile `bricky.nim`
+        run: nim js -d:release bricky.nim && mv bricky.js website/scripts/bricky.js
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Upload artifact
