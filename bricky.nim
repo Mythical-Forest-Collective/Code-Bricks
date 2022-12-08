@@ -61,15 +61,19 @@ proc create*(_: typedesc[Brick], tag: Tag, arguments: openArray[Argument],
   var brick = Brick(version: 1, trackingId: TrackingId.new(), arguments: arguments.toSeq(),
   genTmpl: genTmpl, displayed: displayAs)
 
-  wall.children.add(brick.trackingId)
+  wall.kids.add(brick.trackingId)
   brick.parent = wall.trackingId
 
   walls.add(wall)
   bricks.add(brick)
 
-  document.getElementById("bricklayer").appendChild(wall.elem)
+  var wallElem = wall.elem
+  document.getElementById("bricklayer").appendChild(wallElem)
 
-  wall.elem.appendChild(brick.elem)
+  echo brick.elem.outerHTML
+  discard window.setTimeout((proc() =
+    wallElem.appendChild(brick.elem)
+  ), 500)
 
 
 proc load*() {.cdecl, exportc.} =

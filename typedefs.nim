@@ -26,7 +26,7 @@ type
 
   Wall* = object
     version*: int
-    children*: seq[TrackingId]
+    kids*: seq[TrackingId]
     trackingId*: TrackingId
 
 proc `$`*(tag: Tag): string = tag.language & "::" & tag.module & "::" & tag.function
